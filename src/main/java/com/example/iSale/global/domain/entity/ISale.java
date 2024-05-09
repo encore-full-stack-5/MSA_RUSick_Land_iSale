@@ -1,12 +1,10 @@
 package com.example.iSale.global.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,26 +16,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ISale {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "ISALE_ID") // 분양 id
-    private Long iSale_id;
+    private UUID iSaleId;
 
     @Column(name = "ISALE_IN") // 입주 가능일
-    private Date iSale_in;
+    private String iSaleIn;
 
     @Column(name = "ISALE_SELL_PRICE") // 분양가
-    private Long iSale_sell_price;
+    private Long iSaleSellPrice;
 
     @Column(name = "ISALE_CATEGORY")
-    private Integer iSale_category;
+    private Integer iSaleCategory;
 
     @Column(name = "ISALE_NAME")
-    private String iSale_name;
+    private String iSaleName;
 
     @Column(name = "ISALE_AREA")
-    private String iSale_area;
+    private String iSaleArea;
 
     @Column(name = "ISALE_ADDRESS")
-    private String iSale_address;
+    private String iSaleAddress;
+
+    @OneToMany(mappedBy = "isale", cascade = CascadeType.REMOVE)
+    private List<InterestISale> interestISales;
 
 }
